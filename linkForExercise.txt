@@ -1,0 +1,17 @@
+https://alert-sunspot-e60.notion.site/e6c294a494444b538936cf45378925c3?v=372f3d08a33b4b69833f31c7a972715d&p=351bc47dc1cc4ef481f8fff162703665&pm=s
+
+- Create STAR WARS table with using of *https://swapi.dev/:***
+    - loads list of planets (the first page will be enough)
+    - for every planet loads list of all residents (in parallel!)
+    - for every resident load species (in parallel). If a resident doesn’t have species, use human species.
+    - with help of console.table function display the list of planets (first column), residents (second column), species (third column)
+    
+    The task can be solved with promises, async/await, generators... as you wish.
+    
+    Handle loading state:
+    
+    - when some request is done, in console display info message (console.info) that particular Planets are loading..., Residents for ${plane.name} is loading..., Species for ${resident.name} is loading...
+    
+    Error handling:
+    
+    - in case any planet, resident or species fails to load, show the message in the console that specific "${Planet or Resident or Species} failed to load", but the error should not break function. And the rest data should be displayed.
