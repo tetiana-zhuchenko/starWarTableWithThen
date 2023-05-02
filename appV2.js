@@ -1,3 +1,22 @@
+function createResident(planetResidents) {
+  const residentsList = planetResidents.residents.map((resident) => {
+    return new Resident(
+      planetResidents.planetName,
+      resident.name,
+      resident.species
+    );
+  });
+  return residentsList;
+}
+
+class Resident {
+  constructor(planet, residentName, species) {
+    this.planet = planet;
+    this.resident = residentName;
+    this.species = species;
+  }
+}
+
 function fetchDataPlanets() {
   return new Promise(function (resolve, reject) {
     const fetchPromise = fetch('https://swapi.dev/api/planets');
@@ -22,11 +41,7 @@ function fetchDataPlanets() {
         return allResidents;
       })
       .then((allResidents) =>
-        Promise.allSettled(
-          allResidents.map((url) => {
-            return fetch(url);
-          })
-        )
+        Promise.allSettled(allResidents.map((url) => fetch(url)))
       )
       .then((rawResults) =>
         rawResults
@@ -50,33 +65,19 @@ function fetchDataPlanets() {
         });
       })
       .then(() => {
-        function createResident(planetResidents) {
-          const residentsList = planetResidents.residents.map((resident) => {
-            return new Resident(
-              planetResidents.planetName,
-              resident.name,
-              resident.species
-            );
-          });
-          return residentsList;
-        }
         allResidentsList = resultingTableData.flatMap((planetItem) =>
           createResident(planetItem)
         );
         return allResidentsList;
       })
       .then((residentsList) => {
-        const allResidentsSpecies = residentsList.map((resident) => {
-          return resident.species;
-        });
+        const allResidentsSpecies = residentsList.map(
+          (resident) => resident.species
+        );
         return allResidentsSpecies;
       })
       .then((allResidentsSpecies) =>
-        Promise.allSettled(
-          allResidentsSpecies.map((url) => {
-            return fetch(url);
-          })
-        )
+        Promise.allSettled(allResidentsSpecies.map((url) => fetch(url)))
       )
       .then((rawResults) => {
         return rawResults.map((result) => result.value);
@@ -103,12 +104,10 @@ function fetchDataPlanets() {
   });
 }
 
-class Resident {
-  constructor(planet, residentName, species) {
-    this.planet = planet;
-    this.resident = residentName;
-    this.species = species;
-  }
-}
-
-fetchDataPlanets().then((data) => console.table(data));
+fetchDataPlanets()
+  .then((data) => console.table(data))
+  .then(() => {
+    // preloader
+    const preloader = document.querySelector('.preloader');
+    preloader.classList.add('hide-preloader');
+  });

@@ -1,0 +1,15 @@
+body {
+  background: rgb(59, 56, 56);
+}
+h1,
+h2 {
+  text-align: center;
+  color: antiquewhite;
+  margin: 0;
+  padding-top: 0.2em;
+}
+
+.hide-preloader {
+  z-index: -999;
+  visibility: hidden;
+}
